@@ -447,19 +447,21 @@ export async function loadCandyProgram(
   customRpcUrl?: string,
 ) {
   if (customRpcUrl) console.log('USING CUSTOM URL', customRpcUrl);
-
+  console.log("a");
   // @ts-ignore
   const solConnection = new anchor.web3.Connection(
     //@ts-ignore
     customRpcUrl || web3.clusterApiUrl(env),
   );
-
+  console.log("b");
   const walletWrapper = new anchor.Wallet(walletKeyPair);
+  console.log("c");
   const provider = new anchor.Provider(solConnection, walletWrapper, {
     preflightCommitment: 'recent',
   });
+  console.log("d");
   const idl = await anchor.Program.fetchIdl(CANDY_MACHINE_PROGRAM_ID, provider);
-
+  console.log("e", idl);
   const program = new anchor.Program(idl, CANDY_MACHINE_PROGRAM_ID, provider);
   log.debug('program id from anchor', program.programId.toBase58());
   return program;
